@@ -7,6 +7,7 @@ var ClozeCard = require("./ClozeCard.js");
 //Handles the game starting to select basic or cloze
 var startFlash = function() {
 
+	//Inquire to select which flash
 	inquirer.prompt([
 
 	{
@@ -18,34 +19,52 @@ var startFlash = function() {
 
 	]).then(function (answers) {
 
-		console.log("you got to startflash promise");
+		// console.log("you got to startflash promise");
+		// console.log(answers.start);
 
-		switch (answers.startFlash) {
+		//switch to handle what is selected
+		switch (answers.start) {
 
-			//TBD
+			case "Take a Basic Quiz":
+				basicFlash();
+				break;
 
+			case "Take a Cloze Quiz":
+				clozeFlash();
+				break;
+
+			default:
+				console.log("Opps, you broke it");	
 		}
 
 	});
-
-
-
-	//Inquire to select which flash
-	//switch to handle what is selected
 
 };
 
 var basicFlash = function () {
 
-	//TBD
+	console.log("got to basicflash");
+
 	//Read JSON file
+	fs.readFile("./basic.json", "utf8", function(error, data) {
+
+		if (error) throw error;
+
+		console.log(data);
+
+		var test = JSON.parse(data);
+
+		console.log(test);
+
+	});
+
 	//Inquire to answer questions
 
 };
 
 var clozeFlash = function() {
 
-	//TBD
+	console.log("got to clozeflash");
 	//Read JSON file
 	//Inquire to answer questions
 
