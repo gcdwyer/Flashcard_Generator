@@ -50,15 +50,35 @@ var basicFlash = function () {
 
 		if (error) throw error;
 
-		console.log(data);
+		// console.log(data);
 
 		var test = JSON.parse(data);
 
-		console.log(test);
+		// console.log(test);
+
+		for (var i = 0; i < test.length; i++) {
+
+			console.log("-------------------------------");
+
+			console.log(test[i]);
+			
+			// inquirer.prompt([
+
+			// {
+			// 	name: "question",
+			// 	message: test[i].front,
+			// 	type: "input"
+			// }
+
+			// ]).then(function(answers) {
+
+			// 	console.log("got inside basicflash promise");
+
+			// });
+
+		}
 
 	});
-
-	//Inquire to answer questions
 
 };
 
