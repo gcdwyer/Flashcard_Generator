@@ -1,7 +1,7 @@
 [
   {
     "text": "George Washington was the first president of the United States.",
-    "cloze": "Washington"
+    "cloze": "George Washington"
   },
   {
     "text": "The Treaty of Paris was an agreement signed by British and American leaders that stated the United States of America was a free and independent country.",
@@ -21,6 +21,6 @@
   },
   {
     "text": "Thomas Edison is credited with the invention of the incandescent lightbulb.",
-    "cloze": "Edison"
+    "cloze": "Thomas Edison"
   }
 ]

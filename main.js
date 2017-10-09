@@ -86,35 +86,37 @@ var clozeFlash = function (count) {
 
 		var test = JSON.parse(data);
 
-		console.log(test[count].text);
+		// console.log(test[count].text);
 
-		// if (count < test.length) {
+		// var newCloze = new ClozeCard("TBD", "TBD");
 
-		// 	inquirer.prompt([
+		if (count < test.length) {
 
-		// 	{
-		// 		name: "question",
-		// 		message: test[count],
-		// 		type: "input"
-		// 	}
+			inquirer.prompt([
 
-		// 	]).then(function(answers) {
+			{
+				name: "question",
+				message: test[count].text,
+				type: "input"
+			}
 
-		// 		if (answers.question.toLowerCase() === test[count].back.toLowerCase()) {
-		// 			console.log("-------------------------------");
-		// 			console.log("Correct");
-		// 			console.log("-------------------------------");
-		// 			count++;
-		// 			basicFlash(count);
-		// 		} else {
-		// 			console.log("-------------------------------");
-		// 			console.log("Incorrect");
-		// 			console.log("-------------------------------");
-		// 			count++;
-		// 			basicFlash(count);
-		// 		}
-		// 	});
-		// }
+			]).then(function(answers) {
+
+				if (answers.question.toLowerCase() === test[count].cloze.toLowerCase()) {
+					console.log("-------------------------------");
+					console.log("Correct");
+					console.log("-------------------------------");
+					count++;
+					clozeFlash(count);
+				} else {
+					console.log("-------------------------------");
+					console.log("Incorrect");
+					console.log("-------------------------------");
+					count++;
+					clozeFlash(count);
+				}
+			});
+		}
 	});
 };
 
