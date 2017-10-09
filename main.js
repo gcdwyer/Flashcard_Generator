@@ -30,7 +30,7 @@ var startFlash = function() {
 				break;
 
 			case "Take a Cloze Quiz":
-				clozeFlash();
+				clozeFlash(0);
 				break;
 
 			default:
@@ -43,25 +43,11 @@ var startFlash = function() {
 
 var basicFlash = function (count) {
 
-	// console.log("got to basicflash");
-
-	//Read JSON file
 	fs.readFile("./basic.json", "utf8", function(error, data) {
 
 		if (error) throw error;
-
-		// console.log(data);
-
 		var test = JSON.parse(data);
-		// console.log(test);
-		// console.log(test[count]);
-		console.log(test[0].front);	
-
-		console.log("count: " + count);	
-
 		if (count < test.length) {
-
-			console.log("got inside if statment")
 
 			inquirer.prompt([
 
@@ -73,31 +59,67 @@ var basicFlash = function (count) {
 
 			]).then(function(answers) {
 
-				console.log("-------------------------------");
-				console.log("got inside basicflash promise");
-				count++;
-				console.log(count);
-
+				if (answers.question.toLowerCase() === test[count].back.toLowerCase()) {
+					console.log("-------------------------------");
+					console.log("Correct");
+					console.log("-------------------------------");
+					count++;
+					basicFlash(count);
+				} else {
+					console.log("-------------------------------");
+					console.log("Incorrect");
+					console.log("-------------------------------");
+					count++;
+					basicFlash(count);
+				}
 			});
 		}
 	});
 };
 
 
+var clozeFlash = function (count) {
 
+	fs.readFile("./cloze.json", "utf8", function(error, data) {
 
+		if (error) throw error;
 
+		var test = JSON.parse(data);
 
+		console.log(test[count].text);
 
+		// if (count < test.length) {
 
+		// 	inquirer.prompt([
 
+		// 	{
+		// 		name: "question",
+		// 		message: test[count],
+		// 		type: "input"
+		// 	}
 
-var clozeFlash = function() {
+		// 	]).then(function(answers) {
 
-	console.log("got to clozeflash");
-	//Read JSON file
-	//Inquire to answer questions
-
+		// 		if (answers.question.toLowerCase() === test[count].back.toLowerCase()) {
+		// 			console.log("-------------------------------");
+		// 			console.log("Correct");
+		// 			console.log("-------------------------------");
+		// 			count++;
+		// 			basicFlash(count);
+		// 		} else {
+		// 			console.log("-------------------------------");
+		// 			console.log("Incorrect");
+		// 			console.log("-------------------------------");
+		// 			count++;
+		// 			basicFlash(count);
+		// 		}
+		// 	});
+		// }
+	});
 };
+
+
+
+
 
 startFlash();
