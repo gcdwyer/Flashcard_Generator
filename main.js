@@ -26,7 +26,7 @@ var startFlash = function() {
 		switch (answers.start) {
 
 			case "Take a Basic Quiz":
-				basicFlash();
+				basicFlash(0);
 				break;
 
 			case "Take a Cloze Quiz":
@@ -41,9 +41,9 @@ var startFlash = function() {
 
 };
 
-var basicFlash = function () {
+var basicFlash = function (count) {
 
-	console.log("got to basicflash");
+	// console.log("got to basicflash");
 
 	//Read JSON file
 	fs.readFile("./basic.json", "utf8", function(error, data) {
@@ -53,34 +53,44 @@ var basicFlash = function () {
 		// console.log(data);
 
 		var test = JSON.parse(data);
-
 		// console.log(test);
+		// console.log(test[count]);
+		console.log(test[0].front);	
 
-		for (var i = 0; i < test.length; i++) {
+		console.log("count: " + count);	
 
-			console.log("-------------------------------");
+		if (count < test.length) {
 
-			console.log(test[i]);
-			
-			// inquirer.prompt([
+			console.log("got inside if statment")
 
-			// {
-			// 	name: "question",
-			// 	message: test[i].front,
-			// 	type: "input"
-			// }
+			inquirer.prompt([
 
-			// ]).then(function(answers) {
+			{
+				name: "question",
+				message: test[count].front,
+				type: "input"
+			}
 
-			// 	console.log("got inside basicflash promise");
+			]).then(function(answers) {
 
-			// });
+				console.log("-------------------------------");
+				console.log("got inside basicflash promise");
+				count++;
+				console.log(count);
 
+			});
 		}
-
 	});
-
 };
+
+
+
+
+
+
+
+
+
 
 var clozeFlash = function() {
 
