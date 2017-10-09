@@ -37,6 +37,9 @@ var startFlash = function() {
 				console.log("Opps, you broke it");	
 		}
 
+		// Used to clear terminal window
+		console.log('\033[2J');
+
 	});
 
 };
@@ -46,6 +49,7 @@ var basicFlash = function (count) {
 	fs.readFile("./basic.json", "utf8", function(error, data) {
 
 		if (error) throw error;
+		var score = 0;
 		var test = JSON.parse(data);
 		if (count < test.length) {
 
@@ -53,26 +57,54 @@ var basicFlash = function (count) {
 
 			{
 				name: "question",
-				message: test[count].front,
-				type: "input"
+				message: test[count].front + "\nAnswer:",
+				type: "input",
 			}
 
 			]).then(function(answers) {
 
 				if (answers.question.toLowerCase() === test[count].back.toLowerCase()) {
-					console.log("-------------------------------");
-					console.log("Correct");
-					console.log("-------------------------------");
+					console.log("--------------------------------------------------------------");
+					console.log("You are correct!");
+					console.log("--------------------------------------------------------------");
 					count++;
+					score++
 					basicFlash(count);
 				} else {
-					console.log("-------------------------------");
-					console.log("Incorrect");
-					console.log("-------------------------------");
+					console.log("--------------------------------------------------------------");
+					console.log("Incorrect! The answer is '" + test[count].back + "'");
+					console.log("--------------------------------------------------------------");
 					count++;
 					basicFlash(count);
 				}
 			});
+
+		} else if (count == test.length) {
+
+			console.log("Game Over!");
+			console.log("You got " + score + " out of " + test.length + " correct.");
+
+			inquirer.prompt([
+
+			{
+				name: "playAgain",
+				message: "Play Again?",
+				type: "input",
+			}
+
+			]).then(function(answers) {
+
+				// if yes then run startflash
+				// else exit
+
+			});
+
+
+
+		} else {
+
+			console.log("TBD");
+
 		}
 	});
 };
@@ -83,13 +115,7 @@ var clozeFlash = function (count) {
 	fs.readFile("./cloze.json", "utf8", function(error, data) {
 
 		if (error) throw error;
-
 		var test = JSON.parse(data);
-
-		// console.log(test[count].text);
-
-		// var newCloze = new ClozeCard("TBD", "TBD");
-
 		if (count < test.length) {
 
 			var newClozeCard = new ClozeCard(test[count].text, test[count].cloze);
@@ -104,8 +130,6 @@ var clozeFlash = function (count) {
 
 			]).then(function(answers) {
 
-				console.log("got to cloze promise");
-
 				if (answers.question.toLowerCase() === newClozeCard.cloze.toLowerCase()) {
 					console.log("-------------------------------");
 					console.log("Correct");
@@ -119,14 +143,9 @@ var clozeFlash = function (count) {
 					count++;
 					clozeFlash(count);
 				}
-
 			});
 		}
 	});
 };
-
-
-
-
 
 startFlash();
