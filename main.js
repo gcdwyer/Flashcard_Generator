@@ -1,6 +1,7 @@
 // NPM packages
 var fs = require("fs");
 var inquirer = require('inquirer');
+var chalk = require('chalk');
 // Constructor links
 var BasicCard = require("./BasicCard.js");
 var ClozeCard = require("./ClozeCard.js");
@@ -10,7 +11,7 @@ var score = 0;
 //Handles the game starting to select basic or cloze
 var startFlash = function() {
 
-	// Used to clear terminal window
+	// Used to clear terminal window at startup
 	console.log('\033[2J');
 
 	//Inquire to select which flash
@@ -39,7 +40,7 @@ var startFlash = function() {
 				console.log("Opps, you broke it");	
 		}
 
-		// Used to clear terminal window
+		// Used to clear terminal window after type of quiz is selected
 		console.log('\033[2J');
 
 	});
@@ -66,16 +67,16 @@ var basicFlash = function (count) {
 			]).then(function(answers) {
 				// if user input = answer score +1
 				if (answers.question.toLowerCase() === questionInfo[count].back.toLowerCase()) {
-					console.log("--------------------------------------------------------------");
-					console.log("You are correct!");
-					console.log("--------------------------------------------------------------");
+					console.log(chalk.green("--------------------------------------------------------------"));
+					console.log(chalk.green("You are correct!"));
+					console.log(chalk.green("--------------------------------------------------------------"));
 					count++;
 					score++
 					basicFlash(count);
 				} else {
-					console.log("--------------------------------------------------------------");
-					console.log("Incorrect! The answer is '" + questionInfo[count].back + "'");
-					console.log("--------------------------------------------------------------");
+					console.log(chalk.red("--------------------------------------------------------------"));
+					console.log(chalk.red("Incorrect! The answer is '" + questionInfo[count].back + "'"));
+					console.log(chalk.red("--------------------------------------------------------------"));
 					count++;
 					basicFlash(count);
 				}
@@ -84,7 +85,7 @@ var basicFlash = function (count) {
 		} else if (count == questionInfo.length) {
 
 			console.log("Game Over!");
-			console.log("You got " + score + " out of " + questionInfo.length + " correct.");
+			console.log(chalk.yellow("You got " + score + " out of " + questionInfo.length + " correct."));
 
 			inquirer.prompt([
 
@@ -135,16 +136,16 @@ var clozeFlash = function (count) {
 			]).then(function(answers) {
 				// if user input = answer score +1
 				if (answers.question.toLowerCase() === newClozeCard.cloze.toLowerCase()) {
-					console.log("--------------------------------------------------------------");
-					console.log("You are correct!");
-					console.log("--------------------------------------------------------------");
+					console.log(chalk.green("--------------------------------------------------------------"));
+					console.log(chalk.green("You are correct!"));
+					console.log(chalk.green("--------------------------------------------------------------"));
 					count++;
 					score++
 					clozeFlash(count);
 				} else {
-					console.log("==============================================================");
-					console.log("Incorrect! The answer is '" + newClozeCard.cloze + "'");
-					console.log("==============================================================");
+					console.log(chalk.red("--------------------------------------------------------------"));
+					console.log(chalk.red("Incorrect! The answer is '" + newClozeCard.cloze + "'"));
+					console.log(chalk.red("--------------------------------------------------------------"));
 					count++;
 					clozeFlash(count);
 				}
@@ -153,7 +154,7 @@ var clozeFlash = function (count) {
 		} else if (count == questionInfo.length) {
 
 			console.log("Game Over!");
-			console.log("You got " + score + " out of " + questionInfo.length + " correct.");
+			console.log(chalk.yellow("You got " + score + " out of " + questionInfo.length + " correct."));
 
 			inquirer.prompt([
 
