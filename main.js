@@ -92,17 +92,21 @@ var clozeFlash = function (count) {
 
 		if (count < test.length) {
 
+			var newClozeCard = new ClozeCard(test[count].text, test[count].cloze);
+
 			inquirer.prompt([
 
 			{
 				name: "question",
-				message: test[count].text,
+				message: newClozeCard.dotText(),
 				type: "input"
 			}
 
 			]).then(function(answers) {
 
-				if (answers.question.toLowerCase() === test[count].cloze.toLowerCase()) {
+				console.log("got to cloze promise");
+
+				if (answers.question.toLowerCase() === newClozeCard.cloze.toLowerCase()) {
 					console.log("-------------------------------");
 					console.log("Correct");
 					console.log("-------------------------------");
@@ -115,6 +119,7 @@ var clozeFlash = function (count) {
 					count++;
 					clozeFlash(count);
 				}
+
 			});
 		}
 	});
